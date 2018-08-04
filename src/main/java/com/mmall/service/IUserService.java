@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by zhang on 2018/7/31.
  */
-@Service("iUserService")
+
 public interface IUserService {
     ServerResponse<User> login(String username, String password);
 
