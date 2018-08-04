@@ -152,7 +152,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  
+  <!--以上的是generator自动生成-->
   <select id="checkUsername" resultType="int" parameterType="string" >
     select count(1) from mmall_user
     where username = #{username}
