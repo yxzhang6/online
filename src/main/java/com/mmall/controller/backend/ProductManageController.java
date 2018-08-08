@@ -6,6 +6,7 @@ import com.mmall.common.ResponseCode;
 import com.mmall.common.ServerResponse;
 import com.mmall.pojo.Product;
 import com.mmall.pojo.User;
+import com.mmall.service.IFileService;
 import com.mmall.service.IProductService;
 import com.mmall.service.IUserService;
 import com.mmall.util.PropertiesUtil;
@@ -117,6 +118,7 @@ public class ProductManageController {
         }
     }
 
+    //文件上传 spring mvc
     @RequestMapping("upload.do")
     @ResponseBody
     public ServerResponse upload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request) {
@@ -175,3 +177,4 @@ public class ProductManageController {
             return resultMap;
         }
     }
+}
