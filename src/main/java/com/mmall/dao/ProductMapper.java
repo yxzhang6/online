@@ -21,7 +21,10 @@ public interface ProductMapper {
     //以下
     //分页
     List<Product> selectList();
+
     //商品搜索
-    List<Product> selectByNameAndProductId(@Param("productName")String productName, @Param("productId") Integer productId);
+    List<Product> selectByNameAndProductId(@Param("productName") String productName, @Param("productId") Integer productId);
+
+    List<Product> selectByNameAndCategoryIds(@Param("productName") String productName, @Param("categoryIdList") List<Integer> categoryIdList);
 
 }
