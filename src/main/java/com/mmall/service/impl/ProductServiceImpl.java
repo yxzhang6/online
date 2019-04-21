@@ -39,6 +39,8 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private ICategoryService iCategoryService;
 
+
+    //保存和更新产品接口
     public ServerResponse saveOrUpdateProduct(Product product) {
         if (product != null) {
             if (StringUtils.isNotBlank(product.getSubImages())) {
@@ -89,11 +91,11 @@ public class ProductServiceImpl implements IProductService {
         if (product == null) {
             return ServerResponse.createByErrorMessage("产品已下架或者删除");
         }
-        // VO对象--value object  pojo-->bo(business object)-->vo(view object)
+        //简单的： VO对象--value object  pojo-->bo(business object)-->vo(view object)
         ProductDetailVo productDetailVo = assembleProductDetailVo(product);
         return ServerResponse.createBySuccess(productDetailVo);
     }
-
+    //组装数据
     private ProductDetailVo assembleProductDetailVo(Product product) {
         ProductDetailVo productDetailVo = new ProductDetailVo();
         productDetailVo.setId(product.getId());
@@ -121,7 +123,7 @@ public class ProductServiceImpl implements IProductService {
         return productDetailVo;
     }
 
-    //分页
+    //产品分页接口
     public ServerResponse<PageInfo> getProductList(int pageNum, int pageSize) {
         //startPage--start
         //填充自己的sql查询逻辑
@@ -135,10 +137,12 @@ public class ProductServiceImpl implements IProductService {
             productListVoList.add(productListVo);
         }
         PageInfo pageResult = new PageInfo(productList);
-        pageResult.setList(productListVoList);
+        pageResult.setList(productListVoList);//重置分页：两行代码可以合并成一行
+
         return ServerResponse.createBySuccess(pageResult);
     }
 
+    //组装数据
     private ProductListVo assembleProductListVo(Product product) {
         ProductListVo productListVo = new ProductListVo();
         productListVo.setId(product.getId());
@@ -153,6 +157,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
 
+    //产品搜索接口
     public ServerResponse<PageInfo> searchProduct(String productName,Integer productId,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         if(StringUtils.isNotBlank(productName)){

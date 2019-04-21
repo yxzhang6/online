@@ -17,5 +17,6 @@ public interface CategoryMapper {
 
     int updateByPrimaryKey(Category record);
 
+    //以下是新增的
     List<Category> selectCategoryChildrenByParentId(Integer parentId);
 }

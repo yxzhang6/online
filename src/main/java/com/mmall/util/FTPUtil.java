@@ -44,7 +44,7 @@ public class FTPUtil {
                 ftpClient.changeWorkingDirectory(remotePath);
                 ftpClient.setBufferSize(1024);
                 ftpClient.setControlEncoding("UTF-8");
-                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE); //防止一些乱码的问题
                 ftpClient.enterLocalPassiveMode();
                 for(File fileItem : fileList){
                     fis = new FileInputStream(fileItem);
@@ -63,8 +63,7 @@ public class FTPUtil {
         return uploaded;
     }
 
-
-
+    //连接FTP服务器
     private boolean connectServer(String ip,int port,String user,String pwd){
 
         boolean isSuccess = false;
