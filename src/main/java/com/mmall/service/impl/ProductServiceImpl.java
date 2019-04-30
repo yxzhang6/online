@@ -67,7 +67,7 @@ public class ProductServiceImpl implements IProductService {
 
 
     //更新产品的销售状态
-    public ServerResponse<String> setSaleStatus(Integer productId, Integer status) {
+    public ServerResponse<String> updateSaleStatus(Integer productId, Integer status) {
         if (productId == null || status == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
@@ -81,6 +81,7 @@ public class ProductServiceImpl implements IProductService {
         return ServerResponse.createByErrorMessage("修改产品销售状态失败");
     }
 
+    //获取产品详情接口
     public ServerResponse<ProductDetailVo> manageProductDetail(Integer productId) {
         if (productId == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(), ResponseCode.ILLEGAL_ARGUMENT.getDesc());
@@ -153,6 +154,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
 
+    //产品搜索
     public ServerResponse<PageInfo> searchProduct(String productName,Integer productId,int pageNum,int pageSize){
         PageHelper.startPage(pageNum,pageSize);
         if(StringUtils.isNotBlank(productName)){
@@ -211,7 +213,7 @@ public class ProductServiceImpl implements IProductService {
         }
 
         PageHelper.startPage(pageNum,pageSize);
-        //排序处理
+        //动态排序处理
         if(StringUtils.isNotBlank(orderBy)){
             if(Const.ProductListOrderBy.PRICE_ASC_DESC.contains(orderBy)){
                 String[] orderByArray = orderBy.split("_");

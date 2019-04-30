@@ -14,7 +14,7 @@ public class CartProductVo {
     private Integer productId;
     private Integer quantity;//购物车中此商品的数量
     private String productName;
-    private String productSubtitle;
+    private String productSubtitle; //标题
     private String productMainImage;//产品的主图
     private BigDecimal productPrice;//产品的价格
     private Integer productStatus;//产品的状态

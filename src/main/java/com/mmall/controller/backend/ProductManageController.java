@@ -53,7 +53,7 @@ public class ProductManageController {
         }
     }
 
-    @RequestMapping("set_sale_status.do")
+    @RequestMapping("update_sale_status.do")
     @ResponseBody
     public ServerResponse setSaleStatus(HttpSession session, Integer productId, Integer status) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
@@ -62,7 +62,7 @@ public class ProductManageController {
 
         }
         if (iUserService.checkAdminRole(user).isSuccess()) {
-            return iProductService.setSaleStatus(productId, status);
+            return iProductService.updateSaleStatus(productId, status);
         } else {
             return ServerResponse.createByErrorMessage("无权限操作");
         }
@@ -140,7 +140,7 @@ public class ProductManageController {
         }
     }
 
-
+    //富文本中图片的上传
     @RequestMapping("richtext_img_upload.do")
     @ResponseBody
     public Map richtextImgUpload(HttpSession session, @RequestParam(value = "upload_file", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response) {

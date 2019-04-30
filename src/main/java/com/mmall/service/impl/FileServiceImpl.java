@@ -26,26 +26,29 @@ public class FileServiceImpl implements IFileService {
         //扩展名
         //abc.jpg
         String fileExtensionName = fileName.substring(fileName.lastIndexOf(".")+1);
+        //1新文件夹名字
         String uploadFileName = UUID.randomUUID().toString()+"."+fileExtensionName;
         logger.info("开始上传文件,上传文件的文件名:{},上传的路径:{},新文件名:{}",fileName,path,uploadFileName);
 
+        //2创建文件夹
         File fileDir = new File(path);
         if(!fileDir.exists()){
             fileDir.setWritable(true);
             //mkdir()指当前的文件夹 mkdirs()指/a/b/c多层文件夹
             fileDir.mkdirs();
         }
+        //3构成目标文件
         File targetFile = new File(path,uploadFileName);
 
 
         try {
             file.transferTo(targetFile);
-            //文件已经上传成功了
+            //4文件已经上传成功了
 
-
+            //5将targetFile上传到我们的FTP服务器上
             FTPUtil.uploadFile(Lists.newArrayList(targetFile));
-            //已经上传到ftp服务器上
 
+            //上传成功后，删除文件夹里的文件
             targetFile.delete();
         } catch (IOException e) {
             logger.error("上传文件异常",e);

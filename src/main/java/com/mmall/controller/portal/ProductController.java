@@ -22,7 +22,7 @@ public class ProductController {
     private IProductService iProductService;
 
 
-
+    //前台的产品详情接口
     @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse<ProductDetailVo> detail(Integer productId){
