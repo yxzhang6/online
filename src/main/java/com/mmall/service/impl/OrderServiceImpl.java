@@ -81,7 +81,7 @@ public class OrderServiceImpl implements IOrderService {
         //从购物车中获取数据
         List<Cart> cartList = cartMapper.selectCheckedCartByUserId(userId);
 
-
+        //获取购物车订单明细
         ServerResponse serverResponse = this.getCartOrderItem(userId,cartList);
         if(!serverResponse.isSuccess()){
             return serverResponse;

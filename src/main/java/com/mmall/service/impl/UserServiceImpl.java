@@ -37,6 +37,12 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccess("登录成功", user);
     }
 
+
+    /**
+     * 注册
+     * @param user
+     * @return
+     */
     public ServerResponse<String> register(User user) {
         ServerResponse validResponse = this.checkValid(user.getUsername(), Const.USERNAME);
         if (!validResponse.isSuccess()) {
@@ -56,6 +62,12 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccessMessage("注册成功");
     }
 
+    /**
+     * 时时校验
+     * @param str
+     * @param type
+     * @return
+     */
     public ServerResponse<String> checkValid(String str, String type) {
         if (org.apache.commons.lang3.StringUtils.isNotBlank(type)) {
             //开始校验
@@ -77,6 +89,11 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createBySuccessMessage("校验成功");
     }
 
+    /**
+     * 查询问题
+     * @param username
+     * @return
+     */
     public ServerResponse selectQuestion(String username) {
 
         ServerResponse validResponse = this.checkValid(username, Const.USERNAME);
@@ -91,6 +108,13 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("找回密码的问题是空的");
     }
 
+    /**
+     * 校验问题答案
+     * @param username
+     * @param question
+     * @param answer
+     * @return
+     */
     public ServerResponse<String> checkAnswer(String username, String question, String answer) {
         int resultCount = userMapper.checkAnswer(username, question, answer);
         if (resultCount > 0) {
@@ -103,6 +127,13 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    /**
+     * 忘记密码是注册密码
+     * @param username
+     * @param passwordNew
+     * @param forgetToken
+     * @return
+     */
     public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken) {
         if (org.apache.commons.lang3.StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误,token需要传递");
@@ -130,6 +161,13 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("修改密码失败");
     }
 
+    /**
+     * 注册密码
+     * @param passwordOld
+     * @param passwordNew
+     * @param user
+     * @return
+     */
     public ServerResponse<String> resetPassword(String passwordOld, String passwordNew, User user) {
         //防止横向越权,要校验一下这个用户的旧密码,一定要指定是这个用户.因为我们会查询一个count(1),如果不指定id,那么结果就是true啦count>0;
         int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld), user.getId());
@@ -145,6 +183,12 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("密码更新失败");
     }
 
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
     public ServerResponse<User> updateInformation(User user) {
         //username是不能被更新的
         //email也要进行一个校验,校验新的email是不是已经存在,并且存在的email如果相同的话,不能是我们当前的这个用户的.
@@ -166,6 +210,11 @@ public class UserServiceImpl implements IUserService {
         return ServerResponse.createByErrorMessage("更新个人信息失败");
     }
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @return
+     */
     public ServerResponse<User> getInformation(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (user == null) {

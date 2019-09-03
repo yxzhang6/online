@@ -46,6 +46,7 @@ public class CategoryManageController {
         }
     }
 
+    //第一次提交 测试
     @RequestMapping("set_category_name.do")
     @ResponseBody
     public ServerResponse setCategoryName(HttpSession session, Integer categoryId, String categoryName) {

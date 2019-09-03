@@ -68,7 +68,7 @@ public class ProductManageController {
         }
     }
 
-    //获取产品详情的接口就写完了
+    //获取产品详情
     @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse getDetail(HttpSession session, Integer productId) {
