@@ -44,7 +44,7 @@ public class RedisPool {
     public static Jedis getJedis(){
         return pool.getResource();
     }
-    //把Jedis放回连接池
+    //把损坏的链接、Jedis放回连接池
     public static void returnBrokenResource(Jedis jedis){
         pool.returnBrokenResource(jedis);
     }
